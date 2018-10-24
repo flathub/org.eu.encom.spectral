@@ -19,5 +19,5 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/b0/spectral.git
-        tag: '436'
-        commit: 129a83d91fe8e919d7365afbb29fb012a570ba61
+        tag: '462'
+        commit: a27b300b748ce0b67e7afc554733162bd2c90646
