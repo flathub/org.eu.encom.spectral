@@ -1,6 +1,6 @@
 id: org.eu.encom.spectral
 runtime: org.kde.Platform
-runtime-version: '5.11'
+runtime-version: '5.12'
 sdk: org.kde.Sdk
 command: spectral
 finish-args:
@@ -19,5 +19,5 @@ modules:
     sources:
       - type: git
         url: https://gitlab.com/b0/spectral.git
-        tag: '464'
-        commit: 8c29382b3eb7a24c5abe3196c78a546329bb75d9
+        tag: '603'
+        commit: 4ef8e1efd95cd8de3f5c215d2ed27754d8e8c11a
