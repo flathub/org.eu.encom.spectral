@@ -1,23 +1,80 @@
 id: org.eu.encom.spectral
 runtime: org.kde.Platform
-runtime-version: '5.12'
+runtime-version: "5.12"
 sdk: org.kde.Sdk
 command: spectral
 finish-args:
-  - --share=ipc
-  - --share=network
-  - --socket=x11
-  - --socket=wayland
-  - --socket=pulseaudio
   - --device=dri
   - --filesystem=xdg-download
+  - --share=ipc
+  - --share=network
+  - --socket=pulseaudio
+  - --socket=wayland
+  - --socket=x11
   - --talk-name=org.freedesktop.Notifications
   - --talk-name=org.kde.StatusNotifierWatcher
 modules:
-  - name: spectral
-    buildsystem: qmake
+  - name: cmark
+    buildsystem: cmake-ninja
+    builddir: true
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
+      - -DCMARK_TESTS=OFF
+    sources:
+      - type: archive
+        sha256: 2558ace3cbeff85610de3bda32858f722b359acdadf0c4691851865bb84924a6
+        url: https://github.com/commonmark/cmark/archive/0.29.0.tar.gz
+
+  - name: libsecret
+    config-opts:
+      - --disable-static
+      - --disable-gtk-doc
+      - --disable-manpages
+    sources:
+      - type: archive
+        sha256: 303c6e8cf3e12534e885b0682cd6130716c6834397b76d3829321b6d83b2389c
+        url: https://gitlab.gnome.org/GNOME/libsecret/-/archive/0.19.1/libsecret-0.19.1.tar.gz
+
+  - name: noto-fonts
+    buildsystem: simple
+    build-commands:
+      - mkdir --parents /app/share/fonts/
+      - install -D NotoSans-Bold.ttf /app/share/fonts/
+      - install -D NotoSans-Medium.ttf /app/share/fonts/
+      - install -D NotoSans-Regular.ttf /app/share/fonts/
+      - install -D NotoSans-ExtraCondensed.ttf /app/share/fonts/
+      - install -D NotoSans-ExtraCondensedBold.ttf /app/share/fonts/
+    sources:
+      - type: archive
+        url: https://noto-website-2.storage.googleapis.com/pkgs/NotoSans-hinted.zip
+        sha256: 02e5f834c526f815f3b9f90f98e2b5b09f17cec107cc751c3b58fc3a2c0b2942
+
+  - name: olm
+    buildsystem: cmake-ninja
+    config-opts:
+      - -DCMAKE_BUILD_TYPE=Release
     sources:
       - type: git
-        url: https://gitlab.com/b0/spectral.git
-        tag: '648'
-        commit: 256ff10416b5218846c8eb4eba01cd4fde75e090
+        commit: 6753595300767dd70150831dbbe6f92d64e75038
+        disable-shallow-clone: true
+        tag: 3.1.4
+        url: https://gitlab.matrix.org/matrix-org/olm.git
+
+  - name: qtkeychain
+    buildsystem: cmake
+    config-opts:
+      - -DBUILD_TRANSLATIONS=NO
+      - -DCMAKE_INSTALL_LIBDIR=/app/lib
+      - -DLIB_INSTALL_DIR=/app/lib
+    sources:
+      - type: archive
+        sha256: 5f916cd97843de550467db32d2e10f218b904af5b21cfdfcc7c6425d7dfc3ec2
+        url: https://github.com/frankosterfeld/qtkeychain/archive/v0.10.0.tar.gz
+
+  - name: spectral
+    buildsystem: cmake-ninja
+    sources:
+      - type: git
+        url: https://gitlab.com/spectral-im/spectral.git
+        tag: "817"
+        commit: 8d6e69d5529b932b85a2f5e6774de27a267a2ace
