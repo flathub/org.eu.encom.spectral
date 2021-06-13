@@ -1,6 +1,6 @@
 id: org.eu.encom.spectral
 runtime: org.kde.Platform
-runtime-version: "5.12"
+runtime-version: "5.15"
 sdk: org.kde.Sdk
 command: spectral
 finish-args:
@@ -32,8 +32,8 @@ modules:
       - --disable-manpages
     sources:
       - type: archive
-        sha256: 303c6e8cf3e12534e885b0682cd6130716c6834397b76d3829321b6d83b2389c
-        url: https://gitlab.gnome.org/GNOME/libsecret/-/archive/0.19.1/libsecret-0.19.1.tar.gz
+        sha256: ca34e69b210df221ae5da6692c2cb15ef169bb4daf42e204442f24fdb0520d4b
+        url: https://gitlab.gnome.org/GNOME/libsecret/-/archive/0.20.4/libsecret-0.20.4.tar.gz
 
   - name: noto-fonts
     buildsystem: simple
@@ -55,9 +55,9 @@ modules:
       - -DCMAKE_BUILD_TYPE=Release
     sources:
       - type: git
-        commit: 6753595300767dd70150831dbbe6f92d64e75038
+        commit: 64afab93645957846d936a19b8501dbd3f2cc4a1
         disable-shallow-clone: true
-        tag: 3.1.4
+        tag: 3.2.4
         url: https://gitlab.matrix.org/matrix-org/olm.git
 
   - name: qtkeychain
@@ -68,13 +68,13 @@ modules:
       - -DLIB_INSTALL_DIR=/app/lib
     sources:
       - type: archive
-        sha256: 5f916cd97843de550467db32d2e10f218b904af5b21cfdfcc7c6425d7dfc3ec2
-        url: https://github.com/frankosterfeld/qtkeychain/archive/v0.10.0.tar.gz
+        sha256: cc547d58c1402f6724d3ff89e4ca83389d9e2bdcfd9ae3d695fcdffa50a625a8
+        url: https://github.com/frankosterfeld/qtkeychain/archive/v0.12.0.tar.gz
 
   - name: spectral
     buildsystem: cmake-ninja
     sources:
       - type: git
         url: https://gitlab.com/spectral-im/spectral.git
-        tag: "817"
-        commit: 8d6e69d5529b932b85a2f5e6774de27a267a2ace
+        tag: "854"
+        commit: 1f95e8888a70000d10317f29c76eb24287bd7390
